@@ -1,0 +1,7 @@
+label,images,median_width,median_height,median_kilobytes
+Calculus,1296,612.0,408.0,31.4
+Hypodontia,1251,295.0,156.0,8.2
+Tooth Discoloration,1058,276.0,183.0,7.2
+Normal,286,1796.0,1920.0,1060.5
+Mouth Ulcer,265,275.0,191.0,5.3
+Caries,219,339.0,258.0,25.6

@@ -1,0 +1,7 @@
+label,train,val,test
+Calculus,812,194,290
+Caries,154,29,36
+Hypodontia,869,172,210
+Mouth Ulcer,189,40,36
+Normal,207,37,42
+Tooth Discoloration,738,156,164

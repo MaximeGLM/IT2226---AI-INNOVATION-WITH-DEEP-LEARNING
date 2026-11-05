@@ -1,0 +1,24 @@
+{
+  "seed": 42,
+  "similarity_threshold": 0.88,
+  "embedding_model": "torchvision ResNet50 IMAGENET1K_V2",
+  "images": 4375,
+  "groups": 2436,
+  "largest_group": 72,
+  "mixed_groups": 22,
+  "images_in_mixed_groups": 331,
+  "split_sizes": {
+    "train": 2969,
+    "test": 778,
+    "val": 628
+  },
+  "leakage_random_percent": 50.4,
+  "leakage_grouped_percent": 0.0,
+  "environment": {
+    "python": "3.13.16",
+    "torch": "2.11.0+cu130",
+    "torchvision": "0.26.0+cu130",
+    "scikit_learn": "1.6.1",
+    "gpu": "Tesla T4"
+  }
+}
