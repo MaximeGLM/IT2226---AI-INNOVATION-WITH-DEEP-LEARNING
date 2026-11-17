@@ -1,0 +1,12 @@
+                     precision    recall  f1-score   support
+
+           Calculus      0.946     0.795     0.864        44
+             Caries      0.657     0.821     0.730        28
+         Hypodontia      0.953     0.972     0.962       145
+        Mouth Ulcer      0.903     0.966     0.933        29
+             Normal      1.000     1.000     1.000        33
+Tooth Discoloration      0.957     0.917     0.936       120
+
+           accuracy                          0.927       399
+          macro avg      0.903     0.912     0.904       399
+       weighted avg      0.933     0.927     0.928       399

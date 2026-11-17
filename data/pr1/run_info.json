@@ -1,0 +1,34 @@
+{
+  "model": "resnet50",
+  "classes": [
+    "Calculus",
+    "Caries",
+    "Hypodontia",
+    "Mouth Ulcer",
+    "Normal",
+    "Tooth Discoloration"
+  ],
+  "best_experiment": "lr_bb=0.0003",
+  "best_val_macro_f1": 0.9101,
+  "test_accuracy": 0.9273,
+  "test_macro_f1": 0.9044,
+  "success_criteria": {
+    "min_macro_f1": 0.8,
+    "min_recall": 0.75
+  },
+  "split_source": "data_manifest.csv (01_EDA_et_manifest_v2)",
+  "img_size": 224,
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "torch": "2.14.1+cu130",
+  "torchvision": "0.29.1+cu130",
+  "seed": 42
+}
