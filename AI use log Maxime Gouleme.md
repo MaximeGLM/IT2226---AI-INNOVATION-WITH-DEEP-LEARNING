@@ -1,26 +1,20 @@
 # AI Use Log — Maxime Goulème
  
-## Mon journal
-  
-| Date | Outil | Ce que j'ai demandé | Accepté / Modifié / Rejeté | Pourquoi (ce que j'ai vérifié, ce que j'ai trouvé) |
+## My journal
+ 
+| Date | Tool | What I asked for | Accepted / Modified / Rejected | Why (what I checked, what I found) |
 |---|---|---|---|---|
-| 5 nov | Claude | Rédiger `requirements.md` au format SDD (EARS) à partir du brief | accepté | le prompte était claire et la réponse s'est basé sur le template ce qui a permit de faire un document clair |
-| 5 nov | Claude | Écrire `train_resnet50.py` (fine-tuning ResNet-50 sur le dataset) | modifié | il m'a proposé un template, le prompte n'était pas assez claire sur la structure du projet |
-| 14 nov | Claude | Lire le guidebook et construire le plan, le Trello et le notebook PR1 | modifié | m'a proposé aussi un template incomplet et pas assez clair mais a permis d'avoir une base sur laquelle travailler au lieu de partir de 0 |
-| 14 nov | Claude | Mettre en place Kaggle et Colab pour télécharger le dataset | accepté | Testé dans Colab : le téléchargement marche sans compte Kaggle, 4 375 images, effectifs identiques au brief (Calculus 1 296, Hypodontia 1 251, etc.). |
-| 14 nov | Claude | Notebook 01 (EDA, copies modifiées par dHash, images composites, split par groupes, manifest) et notebook 02 (entraînement), après mon observation que le dataset contient déjà des copies modifiées | modifié | Le seuil de copies par défaut (35) puis 48 laissait de la fuite : l'audit test/train montrait que 3 paires sur 4 les plus proches étaient la même photo (distance 49 à 52 bits). Seuil remonté à 60, distance minimale test→train de 61 bits. _(à compléter : ce que j'ai vu en regardant moi-même les nouvelles paires)_ |
-| 14 nov | Claude | Relire le notebook de mon collègue (embeddings ResNet50) et le fusionner avec le mien (`01_EDA_et_manifest_v2.ipynb`) | accepté | Le rassemblement des différentes technique s'est avéré concluant, nous avons gardé les meilleurs techniques |
-| 14 nov | Claude | Images composites : afficher les images juste au-dessus et en dessous du seuil, puis étiqueter à la main | modifié | Le score de couture ne sépare pas proprement : à 3 il coupe énormément de photos non collées, à 6 il y avait 5 images collées au-dessus du seuil et 4 images collées encore en dessous. Aucun seuil unique ne convient, donc j'ai étiqueté à la main. _(à compléter : nombre d'images étiquetées, ce que j'ai trouvé sur les images tirées au hasard)_ |
- 
-## Pistes de vérification concrètes (à faire vraiment, puis à écrire)
- 
-Ce sont les endroits où du code généré se trompe souvent sur ce type de projet. Vérifie-les, note ce que tu trouves.
- 
-- **Le split** : les images d'un même fichier peuvent-elles être dans train et test ? Compte les images par classe dans chaque split.
-- **La métrique** : est-elle calculée sur le test, pas sur le train ni la validation ? Une seule fois à la fin ?
-- **Le choix du meilleur modèle** : sur la validation, pas sur le test.
-- **Les poids de classes** : calculés depuis le train uniquement.
-- **Le chemin du dataset et les noms de classes** : correspondent-ils à ce qu'il y a vraiment sur le disque ?
-- **Les doublons** : le contrôle détecte seulement les fichiers identiques octet par octet, pas les quasi-doublons.
-- **Les versions de bibliothèques et noms d'API** : le code utilise-t-il vraiment des fonctions qui existent dans ta version ?
-- **Ce que tu ne ferais pas confiance en production** : note au moins une partie de ton code dans ce cas (c'est valorisé par le guidebook).
+| 5 Nov | Claude | Write `requirements.md` in SDD format (EARS) from the brief | accepted | The prompt was clear and the answer was based on the template, which made it possible to produce a clear document |
+| 5 Nov | Claude | Write `train_resnet50.py` (fine-tuning ResNet-50 on the dataset) | modified | It gave me a template; my prompt was not clear enough about the structure of the project |
+| 14 Nov | Claude | Read the guidebook and build the plan, the Trello board and the PR1 notebook | modified | It also gave me an incomplete and not very clear template, but it gave me a base to work from instead of starting from zero |
+| 14 Nov | Claude | Set up Kaggle and Colab to download the dataset | accepted | Tested in Colab: the download works without a Kaggle account, 4,375 images, class counts identical to the brief (Calculus 1,296, Hypodontia 1,251, etc.). |
+| 14 Nov | Claude | Notebook 01 (EDA, modified copies by dHash, composite images, split by groups, manifest) and notebook 02 (training), after my observation that the dataset already contains modified copies | modified | The default copy threshold (35), then 48, still let leakage through: the test/train audit showed that 3 of the 4 closest pairs were the same photo (distance 49 to 52 bits). Threshold raised to 60, minimum test→train distance of 61 bits. _(to complete: what I saw myself when looking at the new pairs)_ |
+| 14 Nov | Claude | Read my teammate's notebook (ResNet50 embeddings) and merge it with mine (`01_EDA_et_manifest_v2.ipynb`) | accepted | Combining the two techniques proved conclusive; we kept the best techniques of each |
+| 14 Nov | Claude | Composite images: display the images just above and just below the threshold, then label by hand | modified | The seam score does not separate them cleanly: at 3 it cuts a large number of photos that are not pasted, at 6 there were 5 pasted images above the threshold and 4 pasted images still below it. No single threshold works, so I labelled them by hand. _(to complete: number of images labelled, what I found in the randomly drawn images)_ |
+| 17 Nov | Claude | Check the executed manifest of notebook 01 v2 (versions v2_1 to v2_4): copy threshold, groups, leakage | modified | With a threshold of 0.35, one single group of 3,754 images and a test set of a single image: unusable. I ran the sensitivity table (0.10 to 0.16): at 0.14 there are 2,048 groups, the largest group has 221 images, 57% of the images are in a group of 2 or more; at 0.15 the largest group jumps to 366. Threshold 0.14 kept. The minimum test→train distance is 0.141: the split is consistent with the threshold. 156 of the 399 test images still have a train neighbour closer than 0.18: leakage not quantified (`N_REAL_COPIES` stays `None`), noted as a limit. |
+| 17 Nov | Claude | Presentation slides (white/blue theme, Merriweather font, speaker notes in English) | modified | I modified the slides myself afterwards (layout, charts, texts). The first figures (3,795 images, 2,084 groups, "purification") were out of date: corrected with the real figures from my teammate's notebook. |
+| 18 Nov | Claude | Read my teammate's brief (EDA + ResNet-50) and update the pptx: 3,710 images, 2,048 groups, split 2,827 / 484 / 399, baseline 0.757 → 0.910, test 0.904, confusion matrix, limits | modified | I compared every figure on the slides with the notebook outputs (cleaning 121 + 93 + 451, test 0.904 / 92.7%, Calculus recall 0.795, 29 errors). The "24x" in the text was not in the data: replaced by 95.8% (Normal images with a side above 1,000 pixels). I then reworked slides 8 to 14 myself. |
+| 18 Nov | Claude | Notebook comparing EfficientNet-B0 / ResNet-50 with a selection rule fixed before training (0.02 margin on validation) | accepted | The notebook checks the same manifest and the same split, saves the rule and the decision on Drive before opening the test set, and reloads ResNet-50: we do get 0.904 and 29 errors on the test set again. Result: EfficientNet-B0 passes the rule (0.9334 ≥ 0.9301), test 0.907 and 26 errors: the gap is within noise. Limits noted: a single seed, learning-rate grid chosen for ResNet-50, rule fixed after seeing the ResNet-50 test score. |
+| 18 Nov | Claude | Add the EfficientNet-B0 results to the slides (comparison table, titles, limits) | modified | I checked the figures against the notebook outputs. I saw that the sentence "no disease mistaken for a healthy mouth" is only true for ResNet-50 (EfficientNet has a precision of 0.941 on Normal): slide title corrected. |
+| 22 Nov | Claude | Review the GitHub repository before submission: files to remove, target tree | modified | _(to complete: what I actually removed or moved)_ Problems found: public repository, 4,375 Kaggle images in the repository, old files (`train_resnet50.py`, old notebook 01) with a random split that contradicts the final protocol, outdated README, EfficientNet results missing. |
+| 22 Nov | Claude | Translate the three notebooks into English | modified | I read, corrected and rewrote in my own words |
